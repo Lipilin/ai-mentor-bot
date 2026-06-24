@@ -1,6 +1,7 @@
 export const Config = {
-    callback_data : {
-        cource_question: 'cource_question',
-        lesson_questions: 'lesson_questions',
-    }
+    MENU_CALLBACK: 'MENU_CALLBACK', 
+    PAYMENT_CALLBACK: 'PAYMENT_CALLBACK',
+    MENTOR_CALLBACK: 'MENTOR_CALLBACK',
+    ACCOUNT_CALLBACK: 'ACCOUNT_CALLBACK', 
+    BOT_KEY: '',
 }
