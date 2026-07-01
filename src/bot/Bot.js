@@ -1,6 +1,11 @@
 import { Telegraf } from 'telegraf'
-import { startHandler } from './handlers/startHadler.js'
-import { menuHandler } from './handlers/menuHandler.js'
+import { 
+    menuHandler, 
+    startHandler, 
+    paymentHandler, 
+    accountHandler,
+    mentorHandler
+} from '#handlers'
 import { Config } from './Config.js'
 
 class Bot {
@@ -16,7 +21,7 @@ class Bot {
         bot.action(Config.MENU_CALLBACK, (ctx) => menuHandler(ctx))
         bot.action(Config.PAYMENT_CALLBACK, (ctx) => paymentHadler(ctx))
         bot.action(Config.MENTOR_CALLBACK, (ctx) => mentorHandler(ctx))
-        bot.action(Config.ACCOUNT_CALLBACK, (ctx) => accountHadler(ctx))
+        bot.action(Config.ACCOUNT_CALLBACK, (ctx) => accountHandler(ctx))
         bot.launch()   
     }
 }

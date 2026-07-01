@@ -5,6 +5,6 @@ import { menuInlineKeyboard } from "../keyboards/menuInlineKeyboard.js"
  * @param {Context} ctx
 */
 
-export function menuHandler(ctx){
-    ctx.editMessageText(`Выберите опцию`, menuInlineKeyboard)
+export async function menuHandler(ctx){
+    await ctx.editMessageText(`Выберите опицю: `, {reply_markup: menuInlineKeyboard.reply_markup})
 }
