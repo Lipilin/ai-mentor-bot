@@ -1,8 +1,12 @@
 import { prisma } from "#main"
 
+/**
+ * @param {*} userObject 
+ * @returns { import("@prisma/client").User | null }
+ */
 export async function setAccountInfo(userObject){
     userObject.tokens = Number(process.env.DEFAULT_TOKEN_QUANTITY)
-    await prisma.user.upsert({
+    let user = await prisma.user.upsert({
         where: {
             telegramId: userObject.telegramId
         }, 
@@ -11,4 +15,5 @@ export async function setAccountInfo(userObject){
         }, 
         create: userObject
     }).catch((err) => console.log(err))
+    return user
 }

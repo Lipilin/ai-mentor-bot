@@ -5,6 +5,6 @@ import { Context } from "telegraf"
  * @param {Context} ctx
  */
 
-export function paymentHandler(ctx){
-    return
+export async function paymentHandler(ctx){
+    await ctx.answerCbQuery()
 }
