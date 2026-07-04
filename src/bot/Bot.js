@@ -17,32 +17,33 @@ class Bot {
 
     constructor(token){
         this.token = token
+        this.states = {}
     }
 
-    pushStage(ctx, stage){
-        if(!ctx.session.stages) ctx.session.stages = []
-        ctx.session.stages.push(stage)
-    }
-
-    getCurrentStage(ctx){
-        return ctx.session.stages.pop()
-    }
-
-    getPrevStage(ctx){
-        this.getCurrentStage(ctx)
-        if (ctx.session.stages.length == 0) return menuHandler
-        return ctx.session.stages.pop()
+    initializeStates(){
+        function State(perform, previous = null){
+            this.perform = perform
+            this.previous = previous
+        }
+        this.states[startHandler.name] = new State()
+        this.states[menuHandler.name] = new State(menuHandler)
+        const menuHadlerWrapper = this.states[menuHandler.name] 
+        this.states[paymentHandler.name] = new State(paymentHandler, menuHadlerWrapper)
+        this.states[mentorHandler.name] = new State(mentorHandler, menuHadlerWrapper)
+        this.states[accountHandler.name] = new State(accountHandler, menuHadlerWrapper)
     }
 
     async init(){
         if(!this.token) throw new Error('Token is required')
         const bot = new Telegraf(this.token)
+        this.initializeStates()
         bot.use(session({
             defaultSession: () => ({
-                stages: []
+                state: null
             })
         }))
         bot.use(auth)
+        bot.catch(errorCatcher)
         bot.command('start', (ctx) => startHandler(ctx))
         bot.action(Config.MENU_CALLBACK, (ctx) => menuHandler(ctx))
         bot.action(Config.PAYMENT_CALLBACK, (ctx) => paymentHandler(ctx))
@@ -50,7 +51,6 @@ class Bot {
         bot.action(Config.ACCOUNT_CALLBACK, (ctx) => accountHandler(ctx))
         bot.action(Config.BACK_CALLBACK, (ctx) => backCallbackHandler(ctx))
         bot.on(message('text'), (ctx) => questionHandler(ctx))
-        bot.catch(errorCatcher)
         bot.launch()   
     }
 }

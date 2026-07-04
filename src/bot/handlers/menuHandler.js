@@ -11,5 +11,5 @@ export async function menuHandler(ctx){
     await ctx.answerCbQuery()
     await ctx.editMessageText(Config.MAIN_MENU, {parse_mode: "HTML", reply_markup: menuInlineKeyboard.reply_markup})
     .catch((err) => console.log(err))
-    bot.pushStage(ctx, menuHandler)
+    ctx.session.state = bot.states[menuHandler.name]
 }

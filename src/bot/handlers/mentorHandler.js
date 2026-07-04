@@ -11,11 +11,10 @@ import { checkUserTokens } from "../services/account/index.js"
  */
 
 export async function mentorHandler(ctx){
-    if(ctx.callbackQuery) await ctx.answerCbQuery()
-    bot.pushStage(ctx, mentorHandler)
     if(!checkUserTokens(ctx)){
         await ctx.editMessageText(Config.MENTOR_PAGE_BLOCK_ERROR, backInlineKeyboard)
     }else{
         await ctx.editMessageText(Config.MENTOR_PAGE_TEXT, backInlineKeyboard) 
     }
+    ctx.session.state = bot.states[mentorHandler.name]
 }

@@ -6,8 +6,8 @@ import { bot } from "#main"
  * @param {Context} ctx 
  */
 export function backCallbackHandler(ctx){
-    let backStage = bot.getPrevStage(ctx)
-    if(backStage){
-        return backStage(ctx)
-    }
+    ctx.answerCbQuery()
+    const backStage = ctx.session.state?.previous
+    if(!backStage) return
+    backStage.perform(ctx)
 }

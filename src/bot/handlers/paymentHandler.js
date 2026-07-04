@@ -7,4 +7,5 @@ import { Context } from "telegraf"
 
 export async function paymentHandler(ctx){
     await ctx.answerCbQuery()
+    ctx.session.state = bot.states[paymentHandler.name]
 }

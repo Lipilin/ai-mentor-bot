@@ -30,5 +30,6 @@ export const textsConfig = {
     MENTOR_BUTTON: `Обратиться к Ментору`,
     MAIN_MENU_BUTTOTN: `Основное Меню`, 
     MENTOR_PAGE_PROCESS_ERROR: `К сожалению Ментор сейчас сликшом занят, обратитесь позже`,
-    GENERAL_ERROR_MESSAGE: `В Менторе возникла непредвиденная ошибка, перезупастите бота написав <b>/start</b>`
+    GENERAL_ERROR_MESSAGE: `В Менторе возникла непредвиденная ошибка, перезупастите бота написав <b>/start</b>`, 
+    ENTER_MENTOR_PAGE_WARNING: `Пожалуйста войдите в раздел общения с AI ментором, чтобы задать вопрос`
 }
