@@ -12,21 +12,34 @@ class AiChain {
         })
         this.agents.push({
             agent: googleAgent,
+            promptGenerate: function(){
+                return  clientPrompts.DEFINE_COURSE(this.text)
+            },
             promptFunction: googleAgentPrompt
         })
         this.agents.push({
             agent: googleAgent,
+            promptGenerate: function(){
+                return  clientPrompts.ANSWER_QUESTION(this.text)
+            },
+            promptFunction: googleAgentPrompt
+        })
+        this.agents.push({
+            agent: googleAgent,
+            promptGenerate: function(){
+                return  clientPrompts.CLEAR_TEXT_AND_PRESENT(this.text)
+            },
             promptFunction: googleAgentPrompt
         })
     }
 
     async peformPipeline(usersRequest){
         let response = ``
-        let prompt = usersRequest
+        let promptPart = usersRequest
         for (const agent of this.agents){
-            agent.prompt = prompt
+            agent.text = promptPart
             response = await agent.promptFunction(agent)
-            prompt = response
+            promptPart = response
         }
         return response
     }
