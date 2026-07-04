@@ -9,3 +9,5 @@
 - Node.js (ESM)
 - Telegraf
 - Prisma
+- Docker
+- @google/genai
