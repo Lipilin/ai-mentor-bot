@@ -1,5 +1,9 @@
 import { Context } from "telegraf"
 import { bot } from "#main"
+import { Config } from "../../Config.js"
+import { backInlineKeyboard } from "../keyboards/backInlineKeyboard.js"
+import { checkUserTokens } from "../services/account/index.js"
+
 /**
  * 
  * @param {Context} ctx 
@@ -7,6 +11,11 @@ import { bot } from "#main"
  */
 
 export async function mentorHandler(ctx){
-    await ctx.answerCbQuery()
+    if(ctx.callbackQuery) await ctx.answerCbQuery()
     bot.pushStage(ctx, mentorHandler)
+    if(!checkUserTokens(ctx)){
+        await ctx.editMessageText(Config.MENTOR_PAGE_BLOCK_ERROR, backInlineKeyboard)
+    }else{
+        await ctx.editMessageText(Config.MENTOR_PAGE_TEXT, backInlineKeyboard) 
+    }
 }

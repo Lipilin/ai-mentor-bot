@@ -1,6 +1,5 @@
+import 'dotenv/config'
 import { Bot } from './bot/Bot.js'
-import dotenv from 'dotenv'
-dotenv.config()
 export { prisma } from './prisma.js'
 export const bot = new Bot(process.env.TOKEN)
 bot.init()

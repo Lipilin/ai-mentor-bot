@@ -16,6 +16,7 @@
     "#main": "./src/index.js"
   },
   "dependencies": {
+    "@google/genai": "^2.10.0",
     "@prisma/adapter-mariadb": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@telegraf/session": "^2.0.0-beta.7",
