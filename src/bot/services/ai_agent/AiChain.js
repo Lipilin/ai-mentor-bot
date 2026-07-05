@@ -12,34 +12,32 @@ class AiChain {
         })
         this.agents.push({
             agent: googleAgent,
-            promptGenerate: function(){
-                return  clientPrompts.DEFINE_COURSE(this.text)
-            },
+            meta: {role: Config.USER_ROLE},
+            prompt: clientPrompts.DEFINE_COURSE,
             promptFunction: googleAgentPrompt
         })
         this.agents.push({
             agent: googleAgent,
-            promptGenerate: function(){
-                return  clientPrompts.ANSWER_QUESTION(this.text)
-            },
+            meta: {role: Config.USER_ROLE},
+            prompt: clientPrompts.ANSWER_QUESTION,
             promptFunction: googleAgentPrompt
         })
         this.agents.push({
             agent: googleAgent,
-            promptGenerate: function(){
-                return  clientPrompts.CLEAR_TEXT_AND_PRESENT(this.text)
-            },
+            meta: {role: Config.USER_ROLE},
+            prompt: clientPrompts.CLEAR_TEXT_AND_PRESENT,
             promptFunction: googleAgentPrompt
         })
     }
 
-    async peformPipeline(usersRequest){
+    async peformPipeline(aiContext = [], usersRequest){
         let response = ``
-        let promptPart = usersRequest
+        console.log("Your context is %s\n----------\n", aiContext)
+        aiContext.push({text: usersRequest, meta: {role: Config.USER_ROLE}})
         for (const agent of this.agents){
-            agent.text = promptPart
-            response = await agent.promptFunction(agent)
-            promptPart = response
+            aiContext.push({text: agent.prompt, meta: agent.meta})
+            response = await agent.promptFunction(agent, aiContext)
+            aiContext.push({text: response, meta: agent.meta})
         }
         return response
     }

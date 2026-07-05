@@ -10,8 +10,7 @@ import {
     questionHandler
 } from "#handlers"
 import { Config } from "../Config.js"
-import { auth } from "./middlewares/auth.js"
-import { errorCatcher } from "./middlewares/errorCatcher.js"
+import { auth, errorCatcher, aiController } from "#middlewares"
 
 class Bot {
 
@@ -39,10 +38,12 @@ class Bot {
         this.initializeStates()
         bot.use(session({
             defaultSession: () => ({
-                state: null
+                state: null,
+                aiContext: [],
             })
         }))
         bot.use(auth)
+        bot.use(aiController)
         bot.catch(errorCatcher)
         bot.command('start', (ctx) => startHandler(ctx))
         bot.action(Config.MENU_CALLBACK, (ctx) => menuHandler(ctx))

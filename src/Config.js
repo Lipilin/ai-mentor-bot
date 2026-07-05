@@ -6,5 +6,7 @@ export const Config = {
     MENTOR_CALLBACK: 'MENTOR_CALLBACK',
     ACCOUNT_CALLBACK: 'ACCOUNT_CALLBACK', 
     BACK_CALLBACK: `BACK_CALLBACK`, 
+    USER_ROLE: `user`, 
+    AGENT_ROLE: `model`,
     ...textsConfig
 }
