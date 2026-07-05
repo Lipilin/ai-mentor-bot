@@ -19,7 +19,7 @@ const createObject = (user) => ({
 })
 
 /**
- * @param { any } session
+ * @param {*} session
  * @returns { void }
  */
 export async function setAccountInfo(session){

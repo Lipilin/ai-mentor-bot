@@ -8,5 +8,5 @@ import { Context } from 'telegraf'
  */
 
 export async function startHandler(ctx) {
-    ctx.reply(Config.START_PAGE_TEXT(ctx), startInlineKeyboard)
+    await ctx.reply(Config.START_PAGE_TEXT(ctx), startInlineKeyboard)
 }
