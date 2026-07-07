@@ -8,5 +8,7 @@ export const Config = {
     BACK_CALLBACK: `BACK_CALLBACK`, 
     USER_ROLE: `user`, 
     AGENT_ROLE: `model`,
+    WAITING_ACTION: `typing`, 
+    ANSWER_FORMAT: `HTML`,
     ...textsConfig
 }

@@ -32,27 +32,36 @@ class Bot {
         this.states[accountHandler.name] = new State(accountHandler, menuHadlerWrapper)
     }
 
-    async init(){
-        if(!this.token) throw new Error('Token is required')
-        const bot = new Telegraf(this.token)
-        this.initializeStates()
-        bot.use(session({
+    initializeMiddlewares(){
+        this.bot.use(session({
             defaultSession: () => ({
                 state: null,
                 aiContext: [],
+                aiFree: true, 
             })
         }))
-        bot.use(auth)
-        bot.use(aiController)
-        bot.catch(errorCatcher)
-        bot.command('start', (ctx) => startHandler(ctx))
-        bot.action(Config.MENU_CALLBACK, (ctx) => menuHandler(ctx))
-        bot.action(Config.PAYMENT_CALLBACK, (ctx) => paymentHandler(ctx))
-        bot.action(Config.MENTOR_CALLBACK, (ctx) => mentorHandler(ctx))
-        bot.action(Config.ACCOUNT_CALLBACK, (ctx) => accountHandler(ctx))
-        bot.action(Config.BACK_CALLBACK, (ctx) => backCallbackHandler(ctx))
-        bot.on(message('text'), (ctx) => questionHandler(ctx))
-        bot.launch()   
+        this.bot.use(auth)
+        this.bot.use(aiController)
+        this.bot.catch(errorCatcher)
+    }
+
+    initializeActions(){
+        this.bot.command('start', (ctx) => startHandler(ctx))
+        this.bot.action(Config.MENU_CALLBACK, (ctx) => menuHandler(ctx))
+        this.bot.action(Config.PAYMENT_CALLBACK, (ctx) => paymentHandler(ctx))
+        this.bot.action(Config.MENTOR_CALLBACK, (ctx) => mentorHandler(ctx))
+        this.bot.action(Config.ACCOUNT_CALLBACK, (ctx) => accountHandler(ctx))
+        this.bot.action(Config.BACK_CALLBACK, (ctx) => backCallbackHandler(ctx))
+        this.bot.on(message('text'), (ctx) => questionHandler(ctx))
+    }
+
+    async init(){
+        if(!this.token) throw new Error('Token is required')
+        this.bot = new Telegraf(this.token)
+        this.initializeStates()
+        this.initializeMiddlewares()
+        this.initializeActions()
+        this.bot.launch()   
     }
 }
 
