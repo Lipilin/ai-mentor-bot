@@ -11,10 +11,34 @@ datasource db {
   provider = "mysql"
 }
 
+enum PaymentStatus{
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+enum PaymentCurrency{
+  RUB
+  USD
+  EUR
+}
+
 model User{
   id  Int @id @default(autoincrement())
   name String? @default("ai-mentor-guest")
   telegramId BigInt @unique
   tokens Int @default(0)
+  payments PaymentNote[]
   @@map("users")
+}
+
+model PaymentNote{
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  payment_status PaymentStatus
+  payment_currency PaymentCurrency 
+  @@map("payment_notes")
 }
