@@ -5,6 +5,7 @@ import { checkUserTokens, setAccountInfo} from "../services/account/index.js"
 import { Config } from '../../Config.js'
 import { backInlineKeyboard } from '../keyboards/backInlineKeyboard.js'
 import { bot } from '#main'
+import { responseDivider } from '../utils/responseDivider.js'
 /**
  * 
  * @param { Context } ctx 
@@ -22,7 +23,7 @@ export async function questionHandler(ctx){
             .then(async (response) => {
                 ctx.session.user.tokens -= 1
                 await setAccountInfo(ctx.session)
-                await ctx.reply(response, {parse_mode: Config.ANSWER_FORMAT})
+                await responseDivider.divide(ctx, response)
                 await ctx.reply(Config.CONTINUE_MENTOR, backInlineKeyboard)
             })
             .catch((err) => {

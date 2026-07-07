@@ -10,5 +10,6 @@ export const Config = {
     AGENT_ROLE: `model`,
     WAITING_ACTION: `typing`, 
     ANSWER_FORMAT: `HTML`,
+    TELEGRAM_MESSAGE_LENGTH_LIMIT: `4096`,
     ...textsConfig
 }
