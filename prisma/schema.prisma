@@ -28,7 +28,7 @@ enum PaymentCurrency{
 model User{
   id  Int @id @default(autoincrement())
   name String? @default("ai-mentor-guest")
-  telegramId BigInt @unique
+  telegramId BigInt @unique @map("telegram_id")
   tokens Int @default(0)
   payments PaymentNote[]
   @@map("users")
@@ -36,9 +36,9 @@ model User{
 
 model PaymentNote{
   id Int @id @default(autoincrement())
-  userId Int
+  userId Int @map("user_id")
   user User @relation(fields: [userId], references: [id])
-  payment_status PaymentStatus
-  payment_currency PaymentCurrency 
+  paymentStatus PaymentStatus @default(PENDING) @map("payment_status")
+  paymentCurrency PaymentCurrency @map("payment_currency")
   @@map("payment_notes")
 }
