@@ -10,6 +10,7 @@ services:
       - /app/node_modules
     depends_on:
       - mysql
+      - redis
     restart: unless-stopped
 
   mysql:
@@ -24,5 +25,14 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes: 
+      - redis_data:/data
+    restart: unless-stopped
+    
 volumes:
   mysql_data:
+  redis_data: 
