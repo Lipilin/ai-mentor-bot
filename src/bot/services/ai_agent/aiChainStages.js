@@ -11,12 +11,6 @@ const aiChainStages = [
     {
         agent: googleAgent,
         meta: {role: Config.USER_ROLE},
-        prompt: clientPrompts.DEFINE_COURSE,
-        promptFunction: googleAgentPrompt
-    },
-    {
-        agent: googleAgent,
-        meta: {role: Config.USER_ROLE},
         prompt: clientPrompts.ANSWER_QUESTION,
         promptFunction: googleAgentPrompt
     },

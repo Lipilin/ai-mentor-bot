@@ -7,7 +7,7 @@ class AiChain {
         this.agents = stages
     }
 
-    async performPipeline(aiContext = [], usersRequest){
+    async performPipeline(aiContext, usersRequest){
         let response = ``
         console.log("Your context is %s\n----------\n", aiContext)
         aiContext.push({text: usersRequest, meta: {role: Config.USER_ROLE}})
