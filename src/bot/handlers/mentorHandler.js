@@ -16,5 +16,5 @@ export async function mentorHandler(ctx){
     }else{
         await ctx.editMessageText(Config.MENTOR_PAGE_TEXT, backInlineKeyboard) 
     }
-    ctx.session.state = bot.states[mentorHandler.name]
+    ctx.session.state = mentorHandler.name
 }

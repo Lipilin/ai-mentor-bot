@@ -12,7 +12,7 @@ import { responseDivider } from '../utils/responseDivider.js'
  */
 
 export async function questionHandler(ctx){
-    const isCorrectState = ctx.session?.state == bot.states[mentorHandler.name]
+    const isCorrectState = ctx.session?.state == mentorHandler.name
     if(checkUserTokens(ctx) && isCorrectState){
         await ctx.reply(Config.TEMPORALY_ANSWER)
         const typeInterval = setInterval(async () => {

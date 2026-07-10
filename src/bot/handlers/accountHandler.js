@@ -14,5 +14,5 @@ export async function accountHandler(ctx){
         Config.ACCOUNT_PAGE(ctx),
         { parse_mode: 'HTML', ...backInlineKeyboard}
     ).catch((err) => console.log(err))
-    ctx.session.state = bot.states[accountHandler.name]
+    ctx.session.state = accountHandler.name
 }

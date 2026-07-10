@@ -9,15 +9,12 @@ import { bot } from "#main"
  * @param {Function} next 
  * @returns 
  */
-export function aiController(ctx, next){
-    if(!ctx?.session?.aiFree){
+export async function aiController(ctx, next){
+    if(!ctx.session.aiFree){
         if(ctx.callbackQuery){
-            ctx.answerCbQuery()
+            await ctx.answerCbQuery()
         }
         return
     }
-    if(ctx.session.state != bot.states[mentorHandler.name]){
-        ctx.session.aiContext = []
-    }
-    next()
+    await next()
 }

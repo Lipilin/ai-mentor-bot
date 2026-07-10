@@ -8,8 +8,8 @@ import { Config } from "../../Config.js"
 */
 
 export async function menuHandler(ctx){
+    ctx.session.state = menuHandler.name
     await ctx.answerCbQuery()
     await ctx.editMessageText(Config.MAIN_MENU, {parse_mode: "HTML", reply_markup: menuInlineKeyboard.reply_markup})
     .catch((err) => console.log(err))
-    ctx.session.state = bot.states[menuHandler.name]
 }

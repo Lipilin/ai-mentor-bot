@@ -11,7 +11,7 @@ import { bot } from "#main"
 
 export async function paymentHandler(ctx){
     await ctx.answerCbQuery()
-    ctx.session.state = bot.states[paymentHandler.name]
+    ctx.session.state = paymentHandler.name
     ctx.session.user.tokens = Number(process.env.DEFAULT_TOKEN_QUANTITY)
     await setAccountInfo(ctx.session)
     await ctx.reply(Config.PAYMENT_SUCCESS, backInlineKeyboard)

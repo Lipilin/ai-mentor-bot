@@ -7,7 +7,8 @@ import { bot } from "#main"
  */
 export function backCallbackHandler(ctx){
     ctx.answerCbQuery()
-    const backStage = ctx.session.state?.previous
+    const backStage = bot.states[ctx.session.state]?.previous
+    ctx.session.aiContext = []
     if(!backStage) return
     backStage.perform(ctx)
 }

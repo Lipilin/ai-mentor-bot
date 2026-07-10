@@ -1,7 +1,7 @@
 import { prisma } from "#main"
 
 const whereClause = (user) => ({
-    telegramId: user.telegramId
+    telegramId: BigInt(user.telegramId)
 })
 
 const updatetClause = (user) => {
@@ -26,9 +26,13 @@ export async function setAccountInfo(session){
     if (!session.user){
         session.user = {}
     }
-    session.user= await prisma.user.upsert({
+    const newUserObject = await prisma.user.upsert({
         where: whereClause(session.user), 
         update: updatetClause(session.user),
         create: createObject(session.user)
     }).catch((err) => console.log(err))
+    session.user = {
+        ...newUserObject, 
+        telegramId: newUserObject.telegramId.toString()
+    }
 }
