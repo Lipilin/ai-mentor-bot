@@ -13,9 +13,11 @@ import { Config } from "../Config.js"
 import { auth, errorCatcher, aiController } from "#middlewares"
 
 class Bot {
+    #storageClient
 
-    constructor(token){
+    constructor(token, storageClient){
         this.token = token
+        this.storageClient = storageClient
         this.states = {}
     }
 
@@ -38,7 +40,8 @@ class Bot {
                 state: null,
                 aiContext: [],
                 aiFree: true, 
-            })
+            }),
+            store: this.storageClient,
         }))
         this.bot.use(auth)
         this.bot.use(aiController)
