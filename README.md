@@ -11,3 +11,4 @@
 - Prisma
 - Docker
 - @google/genai
+- Redis
