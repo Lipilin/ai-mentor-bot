@@ -11,5 +11,6 @@ export const Config = {
     WAITING_ACTION: `typing`, 
     ANSWER_FORMAT: `HTML`,
     TELEGRAM_MESSAGE_LENGTH_LIMIT: `4096`,
+    PAYMENT_SYSTEM_UNDEFINED_ERROR: `Платежная система не определена, проведение оплаты невозможно`,
     ...textsConfig
 }
